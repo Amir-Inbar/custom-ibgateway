@@ -1,12 +1,12 @@
 name: algo-trader
+
 services:
   ib-gateway:
+    platform: linux/amd64
     restart: always
     build:
-      context: ./latest
-      tags:
-        - "ghcr.io/gnzsnz/ib-gateway:latest"
-    image: ghcr.io/gnzsnz/ib-gateway:latest
+      context: ./latest  # path to your Dockerfile and sources
+    image: amirinbar/ib-gateway:10.30.1x-custom  # <- This sets the tag automatically
     environment:
       TWS_USERID: ${TWS_USERID}
       TWS_PASSWORD: ${TWS_PASSWORD}
@@ -41,11 +41,11 @@ services:
       SSH_USER_TUNNEL: ${SSH_USER_TUNNEL:-}
       SSH_RESTART: ${SSH_RESTART:-}
       SSH_VNC_PORT: ${SSH_VNC_PORT:-}
-    #    volumes:
-    #      - ${PWD}/jts.ini:/home/ibgateway/Jts/jts.ini
-    #      - ${PWD}/config.ini:/home/ibgateway/ibc/config.ini
-    #      - ${PWD}/tws_settings/:${TWS_SETTINGS_PATH:-/home/ibgateway/Jts}
-    #      - ${PWD}/ssh/:/home/ibgateway/.ssh
+    # volumes:
+    #   - ${PWD}/jts.ini:/home/ibgateway/Jts/jts.ini
+    #   - ${PWD}/config.ini:/home/ibgateway/ibc/config.ini
+    #   - ${PWD}/tws_settings/:${TWS_SETTINGS_PATH:-/home/ibgateway/Jts}
+    #   - ${PWD}/ssh/:/home/ibgateway/.ssh
     ports:
       - "127.0.0.1:4001:4003"
       - "127.0.0.1:4002:4004"
